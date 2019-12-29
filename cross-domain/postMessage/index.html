@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>postMessage solve cross domain</title>
+</head>
+<body>
+  <iframe src="http://localhost:4000/iframe.html" frameborder="0" id="iframe-ele" onload="load()"></iframe>
+  <script>
+    function load() {
+      const iframeEle = document.querySelector('#iframe-ele');
+      iframeEle.contentWindow.postMessage('Hi', 'http://localhost:4000');
+      window.onmessage = (e) => {
+        console.log('index msg:', e.data);
+      }
+    }
+  </script>
+</body>
+</html>

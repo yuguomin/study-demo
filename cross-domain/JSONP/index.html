@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JSONP solve cross domain</title>
+</head>
+<body>
+  
+  <script>
+    
+    function jsonp({url, params, callback}) {
+      return new Promise((resolve, reject) => {
+        let script = document.createElement('script');
+        window[callback] = function(data) {
+          // 只有最终触发了callback才会触发then，然后删除添加的脚本
+          resolve(data);
+          document.body.removeChild(script);
+        }
+        
+        // JSONP的特点是使用GET请求，包括函数名称最终也要以url参数传递
+        params = { ...params, callback };
+        let paramsArr = [];
+        for (let key in params) {
+          paramsArr.push(`${key}=${params[key]}`);
+        }
+        
+        script.src = `${url}?${paramsArr.join('&')}`;
+        document.body.appendChild(script);
+      });
+    }
+
+    jsonp({
+      url: 'http://localhost:3000/say',
+      params: {text: 'Hi~'},
+      callback: 'show' // 每次调用callback函数的名不可相同，否则会出现没有script可删除
+    }).then((data) => {
+      console.log(data);
+    })
+  </script>
+</body>
+</html>
