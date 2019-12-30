@@ -9,6 +9,7 @@
 <body>
   <iframe src="http://localhost:4000/iframe.html" frameborder="0" id="iframe-ele" onload="load()"></iframe>
   <script>
+    // 和跨域iframe利用postMessage通信，跨域页面可以请求对应信息返回过来
     function load() {
       const iframeEle = document.querySelector('#iframe-ele');
       iframeEle.contentWindow.postMessage('Hi', 'http://localhost:4000');
