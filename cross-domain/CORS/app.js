@@ -18,7 +18,6 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', true);
     // 预检的存活时间
     res.setHeader('Access-Control-Max-Age', 6);
-    // 允许返回的头
     if (req.method === 'OPTIONS') {
       // OPTIONS请求不做任何处理
       res.end();
