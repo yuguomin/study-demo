@@ -23,7 +23,7 @@ const removeElement = (nums, val) => {
     }
   }
   return index;
-};
+}
 
 const num1 = [3, 2, 2, 3];
 const num2 = [0, 1, 2, 2, 3, 0, 4, 2];
